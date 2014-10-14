@@ -1,3 +1,6 @@
 *~
 *.pyc
 ENV
+config/local_settings.py
+logs
+run
