@@ -4,7 +4,12 @@ import logging
 # You may add additional parameters such as `username' and `password' if your
 # relay server requires authentication, `starttls' (boolean) or `ssl' (boolean)
 # for secure connections.
-relay_config = {'host': 'localhost', 'port': 8825}
+relay_config = {'host': 'localhost',
+                'port': 8825,
+                'username': None,
+                'password': None,
+                'ssl': False,
+                'starttls': False}
 
 receiver_config = {'host': 'localhost', 'port': 8823}
 
