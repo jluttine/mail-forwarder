@@ -8,11 +8,17 @@ relay_config = {'host': 'localhost', 'port': 8825}
 
 receiver_config = {'host': 'localhost', 'port': 8823}
 
-handlers = ['app.handlers.sample']
+handlers = ['app.handlers.forward']
 
 router_defaults = {'host': '.+'}
 
 template_config = {'dir': 'app', 'module': 'templates'}
+
+# Address to which all accepted emails are forwarded
+forward_address = 'replacethiswith@yourown.emailaddress'
+
+# Only email to these addresses are accepted (use lower case)
+receive_addresses = ['oneacceptable@email.address']
 
 # the config/boot.py will turn these values into variables set in settings
 
