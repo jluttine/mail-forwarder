@@ -29,8 +29,78 @@ Install Lamson. Create a file `config/local_settings.py` and set the following:
  * `receive_addresses`
 
 
+Deploying
+---------
+
+
 Obviously, set the MX records on your nameservers to point to the server on
 which you are running this.
+
+For security, create a new user:
+
+```
+mailserver
+su mailserver
+```
+
+In its home directory, clone the project:
+
+```
+cd /home/mailserver
+git clone https://github.com/jluttine/mail-forwarder.git
+```
+
+Create a Python virtual environment:
+
+```
+cd mail-forwarder
+virtualenv --python=/usr/bin/python2 ENV
+source ENV/bin/activate
+```
+
+Install Lamson:
+
+```
+pip install lamson
+```
+
+Create a startup script `start` with the following content:
+
+```
+#!/bin/bash
+cd /home/mailserver/mail-forwarder
+source ENV/bin/activate
+lamson stop
+lamson start -FORCE True -uid 1001 -gid 1001
+```
+
+Note that the `uid` and `gid` values should be the user and group ID of the user
+account `mailserver`.  You can check those values using:
+
+```
+id mailserver
+```
+
+Make the startup script executable:
+
+```
+chmod og+x start
+```
+
+Create a few required directories:
+
+```
+mkdir logs
+mkdir run
+```
+
+The startup script must be executed as a root (if you are listening to port 25):
+
+```
+sudo ./start
+```
+
+You could add the script to root's crontab to start the server after every boot.
 
 
 License
